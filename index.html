@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MDM4U</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {font-family: "Roboto", sans-serif}
+.w3-bar-block .w3-bar-item {
+  padding: 16px;
+  font-weight: bold;
+}
+</style>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+<!--Navigation bar-->
+<div id="nav-placeholder">
+
+</div>
+
+<script>
+$(function(){
+  $("#nav-placeholder").load("nav.html");
+});
+</script>
+<!--end of Navigation bar-->
+
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
+
+<div class="w3-main" style="margin-left:250px;">
+
+<div id="myTop" class="w3-container w3-top w3-theme w3-large">
+  <p><i class="fa fa-bars w3-button w3-teal w3-hide-large w3-xlarge" onclick="w3_open()"></i>
+  <span id="myIntro" class="w3-hide">MDM4U</span></p>
+</div>
+
+<header class="w3-container w3-theme" style="padding:64px 32px">
+  <h1 class="w3-xxxlarge">Gestion des données</h1>
+</header>
+
+<div class="w3-container" style="padding:32px">
+  <p>Bienvenue au portfolio numérique pour mon cours des Mathématiques de la gestion des données!</p>
+  <p>Ma note de participation pour ce cours sera basée sur le contenu de ce portfolio.</p>
+
+  <h2>Évaluation</h2>
+  <p>Je serai évalué à partir d'une grille d'évaluation pour tout le travail que je fais sur ce site.</p>
+  <a href="https://drive.google.com/file/d/1yvUXAs8ye-ZCvlvNpsVtPxSbJnZd1HGT/view?usp=sharing" target="_blank" class="w3-button w3-pink">Voir la grille</a>
+  <h2>Calendrier du cours</h2>
+  <p>Si jamais je ne me retrouve pas, je peux toujours accéder au calendrier du cours.</p>
+  <a href="https://www.mmebernatchez.ca/mdm4u.html" target="_blank" class="w3-button w3-pink">Voir le calendrier</a>
+  <h2>Intégrité intellectuelle</h2>
+  <p>Je ferai preuve d'intégrité intellectuelle quand je partage de l'information que j'ai recherchée.  Je consignerai les sources fiables de mes recherches dans des bibliographies pour chaque page web.  Pour se faire j'utiliserai le logiciel MyBib.</p>
+  <a href="https://www.mybib.com/" target="_blank" class="w3-button w3-pink">Voir le site MyBib</a>
+
+</div>
+
+<footer class="w3-container w3-theme" style="padding:32px">
+  <p>Contenu de cette page web par M. Gore (prénom: Pytha)</p>
+</footer>
+     
+</div>
+
+<script>
+// Open and close the sidebar on medium and small screens
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+// Change style of top container on scroll
+window.onscroll = function() {myFunction()};
+function myFunction() {
+  if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+    document.getElementById("myTop").classList.add("w3-card-4", "w3-animate-opacity");
+    document.getElementById("myIntro").classList.add("w3-show-inline-block");
+  } else {
+    document.getElementById("myIntro").classList.remove("w3-show-inline-block");
+    document.getElementById("myTop").classList.remove("w3-card-4", "w3-animate-opacity");
+  }
+}
+
+// Accordions
+function myAccordion(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+    x.previousElementSibling.className += " w3-theme";
+  } else { 
+    x.className = x.className.replace("w3-show", "");
+    x.previousElementSibling.className = 
+    x.previousElementSibling.className.replace(" w3-theme", "");
+  }
+}
+</script>
+     
+</body>
+</html> 
