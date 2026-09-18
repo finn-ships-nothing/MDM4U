@@ -19,47 +19,36 @@ body {font-family: "Roboto", sans-serif}
 <body>
 <!--Navigation bar-->
 <div id="nav-placeholder">
-<div id="nav-placeholder"></div>
-<h1>Les différents types de données</h1>
-<h3>Variable Quantitative (continue et discrète)</h3>
-<p>Ici, tu vas définir une variable quantitative en plus d'expliquer et donner des exemples de variables quantitatives continues et discrètes.</p>
 
 </div>
-<h3>Variable Qualitative (nominale et ordinale)</h3>
-<p>Ici, tu vas définir une variable qualitative en plus d'expliquer et donner des exemples de variables qualitatives nominales et ordinales.</p>
 
-@@ -33,15 +35,6 @@
+<script>
+$(function(){
+  $("#nav-placeholder").load("../nav.html");
+});
 </script>
 <!--end of Navigation bar-->
 
-<header class="w3-container w3-theme" style="padding:64px 32px">
-  <h1 class="w3-xxxlarge">Titre du module</h1>
-</header>
-
-<div class="w3-container" style="padding:32px">
-<p>Tu vas supprimer ce paragraphe et remplacer les deux lignes de codes ci-dessous avec le code de ton probre fichier MyBib pour le 1.1 </p>
-
-<!-- Tu peux complètement modifier le contenu ci-dessous -->
-
 <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
-<h1>Certains types de diagrammes</h1>
-<h3>Diagramme à bandes </h3>
-@@ -67,78 +60,86 @@
-<h3>Diagramme circulaire</h3>
-<p>Tu vas remplacer ce paragraphe par le code iframe d'un graphique créé avec Google Sheets.  Les données proviendront des résultats du sondage fait en classe.  </p>
+
+<div class="w3-main" style="margin-left:250px;">
+
+<div id="myTop" class="w3-container w3-top w3-theme w3-large">
+  <p><i class="fa fa-bars w3-button w3-teal w3-hide-large w3-xlarge" onclick="w3_open()"></i>
+  <span id="myIntro" class="w3-hide">MDM4U</span></p>
+</div>
 
 <header class="w3-container w3-theme" style="padding:64px 32px">
-  <h1 class="w3-xxxlarge">Titre du module</h1>
+  <h1 class="w3-xxxlarge">1.1 - Représentation des données</h1>
 </header>
 
 <div class="w3-container" style="padding:32px">
-<p>Tu vas supprimer ce paragraphe et remplacer les deux lignes de codes ci-dessous avec le code de ton probre fichier MyBib pour le 1.1 </p>
 
 <!-- Tu peux complètement modifier le contenu ci-dessous -->
 
 <h1>Les différents types de données</h1>
 <h3>Variable Quantitative (continue et discrète)</h3>
-<p>Ici, tu vas définir une variable quantitative en plus d'expliquer et donner des exemples de variables quantitatives continues et discrètes.</p>
+<p>Voici ma définition...</p>
 
 <h3>Variable Qualitative (nominale et ordinale)</h3>
 <p>Ici, tu vas définir une variable qualitative en plus d'expliquer et donner des exemples de variables qualitatives nominales et ordinales.</p>
@@ -88,9 +77,27 @@ body {font-family: "Roboto", sans-serif}
 <p>Tu vas supprimer ce paragraphe et remplacer les deux lignes de codes ci-dessous avec le code de ton probre fichier MyBib pour le 1.1 </p>
 
 
-<a href="https://www.mybib.com/b/y9P9b2">View Bibliography</a>
-<script src="https://www.mybib.com/e/script" bibliography="y9P9b2"></script>
+<section class="references">
+  <h2>Références</h2>
+  <div class="reference-list">
+    <p class="reference">
+      Gouvernement du Canada, S. C. (2002, septembre 16). <em>Les statistiques : Le pouvoir des données! Organisation des données : Variables</em>. Statistique Canada. https://www150.statcan.gc.ca/n1/edu/power-pouvoir/ch8/5214817-fra.htm
+    </p>
+  </div>
+</section>
 
+<style>
+  .references h2 {
+    font-weight: bold;
+    margin-bottom: 1em;
+  }
+  .reference {
+    margin: 0 0 1em 0;
+    padding-left: 2em;
+    text-indent: -2em; /* crée le retrait en sautoir (hanging indent) */
+    line-height: 1.5;
+  }
+</style>
 
 <!-- Tu peux complètement modifier le contenu par dessus cette ligne -->
 
@@ -100,7 +107,6 @@ body {font-family: "Roboto", sans-serif}
   <p>Contenu de cette page web par M. Gore (prénom: Pytha)</p>
 </footer>
      
-
 </div>
 
 <script>
@@ -129,7 +135,5 @@ function myFunction() {
 
 </script>
      
-
 </body>
 </html> 
-<a href="https://www.mybib.com/b/y9P9b2">View Bibliography</a>
