@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MDM4U</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {font-family: "Roboto", sans-serif}
+.w3-bar-block .w3-bar-item {
+  padding: 16px;
+  font-weight: bold;
+}
+</style>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+<!--Navigation bar-->
+<div id="nav-placeholder">
+
+</div>
+
+<script>
+$(function(){
+  $("#nav-placeholder").load("../nav.html");
+});
+</script>
+<!--end of Navigation bar-->
+
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
+
+<div class="w3-main" style="margin-left:250px;">
+
+<div id="myTop" class="w3-container w3-top w3-theme w3-large">
+  <p><i class="fa fa-bars w3-button w3-teal w3-hide-large w3-xlarge" onclick="w3_open()"></i>
+  <span id="myIntro" class="w3-hide">MDM4U</span></p>
+</div>
+
+<header class="w3-container w3-theme" style="padding:64px 32px">
+  <h1 class="w3-xxxlarge">1.1 - Représentation des données</h1>
+</header>
+
+<div class="w3-container" style="padding:32px">
+
+<!-- Tu peux complètement modifier le contenu ci-dessous -->
+
+<h1>Méthodes d'échantillonage</h1>
+
+<h2>Échantillonage volontaire</h2>
+<p>Ici, tu donnes une explication du type d'échantillonage.  Donne un ou des exemples.</p>
+
+<h2>Échantillonage aléatoire simple</h2>
+<p>Dans un échantillonnage aléatoire simple (EAS), un échantillon de la population est choisi au hasard. C’est-à-dire, chaque personne dans la population a une chance égale d’être choisi.</p>
+<p>Pour construire cet échantillon, considérons l’exemple suivant. Tu as une population de 20000 personnes. Tu peux ensuite donner chaque nombre de 1 à 20000 (soit un index) à chaque personne de manière aléatoire, souvent à l’aide d’un ordinateur. Ensuite, il suffit de choisir les personnes associées aux index de 1 à n pour un échantillon de taille n.</p>
+<p>Cette méthode crée un échantillon qui est très représentatif de la population, mais nécessite une liste complète de la population. Si cette liste existe, cette méthode serait très efficace. Sinon, la création de cette liste peut être très difficile selon la taille/circonstances de la population.</p>
+
+<h2>Échantillonage aléatoire stratifié</h2>
+<p>Dans ce type d’échantillonnage, on divise la population en groupes appelés « strates ». Ces strates sont idéalement homogènes et mutuellement exclusives. C’est-à-dire, chaque strate est remplie de personnes ayant une caractéristique en commun et chaque personne de chaque autre strate n’a pas cette caractéristique. On peut ensuite choisir un échantillon aléatoire (ou toute la population) à partir de chaque strate.</p>
+<p>L’avantage de faire ceci comparé à un EAS est la précision. Par exemple, supposons que Statistique Canada veut poser un sondage à la population canadienne à l’aide de l’échantillonnage. Ils veulent savoir (encore, par exemple) combien de femmes lesbiennes noires qui ont 40 ans savent parler l’anglais, le français, l’espagnol et l’italien dans chaque partie du Canada. Ceci est une population extrêmement minoritaire. Supposons encore que Statistique Canada demande cette question à 50 000 personnes à travers le Canada. Ceci représente 0,125% des Canadiens. Cependant, seulement ~50 de ces personnes vivront en Nunavut. Il se peut que 0 personnes parmi les 50 ont la caractéristique cherchée. Si Statistique Canada est intéressé à savoir comment cette caractéristique varie d’un province/territoire à un autre, les données pour le Nunavut seront très imprécises.</p>
+<p>Alors, séparons la population en strates selon la province/territoire dans lequel ils vivent. Ensuite, on peut décider de poser la question à plus de personnes dans les régions ayant une petite population. Peut-être 10 fois plus de personnes. Ensuite, dans le tableau de valeur, il faut multiplier la valeur de chaque réponse de cette région par 0,1 afin de ne pas les sur-représenter.</p>
+
+
+<h2>Échantillonage aléatoire en grappes</h2>
+<p>Ici, tu donnes une explication du type d'échantillonage.  Donne un ou des exemples.</p>
+
+
+<h2>Échantillonage aléatoire systématique</h2>
+<p>Ici, tu donnes une explication du type d'échantillonage.  Donne un ou des exemples.</p>
+
+
+<h1>Exercices</h1>
+<p>Tu vas supprimer ce paragraphe.  Dans le lien qui mène vers ton travail, change le # pour un lien vers la copie complète du devoir que tu auras copié dans ton Google Drive.</p>
+
+<p><a href="#" target="_blank">Exercices 1.1 et 1.2 - La représentation des données et l'échantillonage</a>
+</p>
+
+<section class="references">
+  <h2>Références</h2>
+  <div class="reference-list">
+    <p class="reference">
+      Alloprof. (s.d.-a). <em>Les diagrammes en statistique - Secondaire 4</em>. Accédé le 18 septembre 2026, depuis <a href="https://www.alloprof.qc.ca/fr/eleves/bv/mathematiques/les-diagrammes-en-statistique-secondaire-4-m1365s4">https://www.alloprof.qc.ca/fr/eleves/bv/mathematiques/les-diagrammes-en-statistique-secondaire-4-m1365s4</a>
+    </p>
+    <p class="reference">
+      Alloprof. (s.d.-b). <em>Les types de variables</em>. Accédé le 18 septembre 2026, depuis <a href="https://www.alloprof.qc.ca/fr/eleves/bv/mathematiques/les-types-de-variables-m1108">https://www.alloprof.qc.ca/fr/eleves/bv/mathematiques/les-types-de-variables-m1108</a>
+    </p>
+    <p class="reference">
+      Gouvernement du Canada, Statistique Canada (2021, septembre 2). <em>Les statistiques : Le pouvoir des données! Organisation des données : Variables</em>. Accédé le 18 septembre 2026, depuis <a href="https://www150.statcan.gc.ca/n1/edu/power-pouvoir/ch8/5214817-fra.htm">https://www150.statcan.gc.ca/n1/edu/power-pouvoir/ch8/5214817-fra.htm</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .references h2 {
+    font-weight: bold;
+    margin-bottom: 1em;
+  }
+  .reference {
+    margin: 0 0 1em 0;
+    padding-left: 2em;
+    text-indent: -2em; /* crée le retrait en sautoir (hanging indent) */
+    line-height: 1.5;
+  }
+</style>
+
+<!-- Tu peux complètement modifier le contenu par dessus cette ligne -->
+
+</div>
+
+<footer class="w3-container w3-theme" style="padding:32px">
+  <p>Contenu de cette page web par Finn K.</p>
+</footer>
+     
+</div>
+
+<script>
+// Open and close the sidebar on medium and small screens
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+// Change style of top container on scroll
+window.onscroll = function() {myFunction()};
+function myFunction() {
+  if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+    document.getElementById("myTop").classList.add("w3-card-4", "w3-animate-opacity");
+    document.getElementById("myIntro").classList.add("w3-show-inline-block");
+  } else {
+    document.getElementById("myIntro").classList.remove("w3-show-inline-block");
+    document.getElementById("myTop").classList.remove("w3-card-4", "w3-animate-opacity");
+  }
+}
+
+</script>
+     
+</body>
+</html> 
