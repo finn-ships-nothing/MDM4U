@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MDM4U</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {font-family: "Roboto", sans-serif}
+.w3-bar-block .w3-bar-item {
+  padding: 16px;
+  font-weight: bold;
+}
+</style>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+<!--Navigation bar-->
+<div id="nav-placeholder">
+
+</div>
+
+<script>
+$(function(){
+  $("#nav-placeholder").load("../nav.html");
+});
+</script>
+<!--end of Navigation bar-->
+
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
+
+<div class="w3-main" style="margin-left:250px;">
+
+<div id="myTop" class="w3-container w3-top w3-theme w3-large">
+  <p><i class="fa fa-bars w3-button w3-teal w3-hide-large w3-xlarge" onclick="w3_open()"></i>
+  <span id="myIntro" class="w3-hide">MDM4U</span></p>
+</div>
+
+<header class="w3-container w3-theme" style="padding:64px 32px">
+  <h1 class="w3-xxxlarge">1.3 - Les biais</h1>
+</header>
+
+<div class="w3-container" style="padding:32px">
+
+<!-- Tu peux complètement modifier le contenu ci-dessous -->
+
+<h1>Les biais</h1>
+<h2>Vidéo de la leçon sur les biais</h2>
+
+<iframe width="876" height="493" src="https://www.youtube.com/embed/xm38DnpQPzE" title="1_03_Les biais" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<h2>Résumé des différents types de biais</h2>
+<ul>
+  <li>Le biais d'échantillonnage</li>
+   <ul>
+      <li>La taille de l’échantillon</li>
+        <ul>
+      		<li>Trop peu de répondants pour tirer des conclusions. </li>
+    	</ul>
+      <li>Les caractéristiques de l’échantillon.</li>
+        <ul>
+      		<li>L’échantillon choisi ne représente pas avec exactitude la population à l’étude.</li>
+    	</ul>
+   </ul>
+</ul>
+
+<ul>
+  <li>Le biais de surreprésentation</li>
+   <ul>
+      <li>Il y a surreprésentation d’une catégorie de participants ou de participantes parce que la méthode de sondage ne tient pas compte des différentes tailles des groupes. </li>
+</ul>
+</ul>
+
+<ul>
+  <li>Le biais de réponse</li>
+     <ul>
+      <li>Les questions de sondage influencent les réponses des répondants.</li>
+        <ul>
+      		<li>Mettre des caractères en gras pour influencer une réponse.  
+</li>
+            <li>Mauvaise formulation des questions. 
+</li>
+            <li>Questions fermées qui influencent les gens. </li>
+    	</ul>
+   </ul>
+  
+  
+   <ul>
+      <li>Autres  influences sur les réponses des répondants.</li>
+        <ul>
+      		<li>Le ton ou l’attitude de la personne qui fait l’entrevue.</li>
+            <li>Le lieu et le moment de l’enquête.</li>
+            <li>La confidentialité des résultats (est-ce que le répondant sera poussé à mentir ?)</li>
+    	</ul>
+   </ul>
+</ul>
+<ul>
+  <li>Le biais de non-répondants</li>
+   <ul>
+      <li>Se produit lorsqu’il y a un manque de renseignement dûs à de questionnaires non-retournés.</li>
+</ul>
+</ul>
+
+<!-- Tu peux complètement modifier le contenu par dessus cette ligne -->
+
+</div>
+
+<footer class="w3-container w3-theme" style="padding:32px">
+  <p>Contenu de cette page web par Finn K.</p>
+</footer>
+     
+</div>
+
+<script>
+// Open and close the sidebar on medium and small screens
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+// Change style of top container on scroll
+window.onscroll = function() {myFunction()};
+function myFunction() {
+  if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+    document.getElementById("myTop").classList.add("w3-card-4", "w3-animate-opacity");
+    document.getElementById("myIntro").classList.add("w3-show-inline-block");
+  } else {
+    document.getElementById("myIntro").classList.remove("w3-show-inline-block");
+    document.getElementById("myTop").classList.remove("w3-card-4", "w3-animate-opacity");
+  }
+}
+
+</script>
+     
+</body>
+</html> 
