@@ -43,17 +43,31 @@ $(function(){
 </div>
 
 <header class="w3-container w3-theme" style="padding:64px 32px">
-  <h1 class="w3-xxxlarge">Inserez votre titre ici!</h1>
+  <h1 class="w3-xxxlarge">2.2 - Les mesures de tendance centrale</h1>
 </header>
 
 <div class="w3-container" style="padding:32px">
 
 <!-- Tu peux complètement modifier le contenu ci-dessous -->
 
-<h1>Titre</h1>
+<p>Les mesures de tendance centrale pemettent de représenter un ensemble de données (souvent quantitatives) avec un nombre unique qui représente la <b>valeur typique</b> de cet ensembe de données.</p>
+<h1>Les moyennes</h1>
 
-<h2>Sous-titre</h2>
-<p>Texte. Contenu. Ici.</p>
+<h2>La moyenne arithméique</h2>
+<p><a href="https://youtu.be/9ZTnarPj0CM" target="_blank">La moyenne arithmétique à la main et vérification avec Google Sheets</a> (vidéo de Mme. Bernatchez de 7 minutes)</p>
+<p>La plus simple des moyennes, cette mesure de tendance centrale est calculé en divisant la somme de tous les données divisé par le nombre de données total. Autrement dit,</p>
+<p>$$ \bar x = \frac{\sum_{i=1}^{n} x_i}{n} $$</p>
+<p>où \(\bar x\) est la moyenne arithmétique, \(x\) est la série des données, et \(x_n\) est la donnée à l'indice \(n\)</p>
+
+<h2>La moyenne pondérée</h2>
+<p><a href="https://youtu.be/-Q2Mlz74VeY" target="_blank">La moyenne pondérée et vérification avec Google Sheets</a> (vidéo de Mme. Bernatchez de 10 minutes)</p>
+<p>Parfois, les valeurs d'une série de données est associé a un coefficient/poids/fréquence. Ceci est commun dans le calcul des notes ou en analysant les données d'un <a href="/MDM4U/module1/2.html" target="_blank"> échantillon aléatoire stratifié</a>. Elle peut être calculé en multipliant chaque terme par son poids, prenant la somme de ceci, et puis en divisant cette somme par la somme des coefficients</p>
+<p>$$ \bar x = \frac{\sum_{i=1}^{n} x_i \cdot c_i}{\sum_{i=1}^{n}c_i} $$</p>
+<p>
+  où \(\bar x\) est la moyenne, <br>
+  \(x\) est la série des données tel que \(x_n\) est la donnée à l'indice \(n\) et <br>
+  \(c\) est la série des poids tel que \(c_n\) est le poids de la valeur \(c_n\) et
+</p>
 
 <h2>Sous-titre 2</h2>
 <p>Voici une liste</p>
