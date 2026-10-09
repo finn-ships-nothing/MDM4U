@@ -13,7 +13,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="shortcut icon" type="image/png" href="/MDM4U/favicon.png">
 <style>
-body {font-family: "Roboto", sans-serif}
+body {
+  font-family: "Roboto", sans-serif
+}
+
+.code {
+  font-family: 'Courier New', Courier, monospace
+}
+
 .w3-bar-block .w3-bar-item {
   padding: 16px;
   font-weight: bold;
@@ -59,28 +66,62 @@ $(function(){
 <ul>
   <li>
     <h2>L'Étendue</h2>
-    <p>Expliquer</p>
+    <p>La différence entre la valeur maximale et la valeur minimale d'une série de données. Dans Excel, l'étendue peut être calculée avec la formule suivante:</p>
+    <p class="code">=(MAX(#REF) - MIN(#REF))</p>
   </li>
   <li>
     <h2>Les quartiles</h2>
-    <p>Expliquer</p>
+    <p>Les quartiles sont des intervalles de données qui divisent les nombres de données en quart. C'est-à-dire, le premier quartile de données contient le quart des données avec les plus basses valeurs. Le quatrième quartile contient le quart des données avec les plus grandes valeurs. Pour calculer les valeurs limites divisant les quartiles, on peut commencer par trouver la médiane. Celle-ci divise les quartiles (1, 2) et (3, 4). Ensuite, on peut trouver la médiane entre la médiane de toutes les données et la valeur minimale, puis la valeur maximale. Ces médianes divisent les quartiles (1 et 2) et (3 et 4) respectivement.</p>
   </li>
   <li>
     <h2>L'écart interquartile</h2>
-    <p>Expliquer</p>
+    <p>L'écart interquartille est simplement l'étendue entre les deux sous-médianes qui séparent les quartiles 1 et 2 et les quartiles 3 et 4. Cette étendue représente l'étendue entre la moitié des données les plus centralisées.</p>
   </li>
   <li>
     <h2>L'écart-type</h2>
-    <p>Expliquer</p>
+    <p>L'écart-type, représenté par la symbole \( \sigma \), est la mesure la plus pratique de la dispersion d'une série de données. Il s'agit d'un chiffre qui indique la proximité des données de leur moyenne. Si \( \sigma \) est grand, les données sont éloignés de la moyenne. Plus \( \sigma \) est petit, plus les données sont concentrées autour de la moyenne. Il est parfois utile d'exprimer ce chiffre comme variance. La variance est simplement le carré de l'écart-type, et elle est défini comme \( \sigma^2 \).</p>
   </li>
 </ul>
 <h2>Comment calculer l'écart-type</h2>
-<p>Expliquer</p>
+<p>Malgré l'utilité de l'écart-type, elle est assez long et compliqué à calculer. Pour le faire à la main, voici le processus:</p>
+<ol>
+  <li><p>Trouver la moyenne de la série des données</p></li>
+  <li><p>Trouver la différence entre chaque valeur et la moyenne</p></li>
+  <li><p>Faire le carré de chacune de ces différences</p></li>
+  <li><p>Additionner toutes ces carrées de différences ensemble</p></li>
+  <li><p>Diviser cette somme par la taille de la population. S'il s'agit d'un échantillon d'une population, il faut diviser par la taille de l'échantillon - 1 pour prendre en compte l'incretidude dans l'échantillon. Ce quotient est la variance, \( \sigma^2 \).</p></li>
+  <li><p>Prendre la racine carrée de la vairance pour enfin obtenir l'écart-type.</p></li>
+</ol>
+
+<p>Mathématiquement, on peut dire que l'écart-type d'une série \( x \) peut être exprimé par l'équation suivant:</p>
+<p>\[ \sigma =  \sqrt{ \frac{ \displaystyle \sum_{i=1}^{n} (x_i - \bar x)^2 }{n} } \]</p>
 
 <h2>Exercices</h1>
 <p><a href="https://docs.google.com/document/d/1iqs7xL4HMqKa0Jsar8lrCXSImEUEkLAO6M77cX1PRBU">Exercices 2.3 - Les mesures de dispersion (Google Docs)</a></p>
 
 <!-- Tu peux complètement modifier le contenu par dessus cette ligne -->
+
+<section class="references">
+  <h2>Références</h2>
+  <div class="reference-list">
+    <p class="reference">
+      Alloprof. (s.d.). <em>L'écart type</em>. Accédé le 9 octobre 2026, depuis <a href="https://www.alloprof.qc.ca/fr/eleves/bv/mathematiques/l-ecart-type-m1508">https://www.alloprof.qc.ca/fr/eleves/bv/mathematiques/l-ecart-type-m1508</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .references h2 {
+    font-weight: bold;
+    margin-bottom: 1em;
+  }
+  .reference {
+    margin: 0 0 1em 0;
+    padding-left: 2em;
+    text-indent: -2em; /* crée le retrait en sautoir (hanging indent) */
+    line-height: 1.5;
+  }
+</style>
 
 </div>
 
