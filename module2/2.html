@@ -17,6 +17,10 @@ body {font-family: "Roboto", sans-serif}
   padding: 16px;
   font-weight: bold;
 }
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
 </style>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
@@ -58,7 +62,40 @@ $(function(){
 <p>La plus simple des moyennes, cette mesure de tendance centrale est calculé en divisant la somme de tous les données divisé par le nombre de données total. Autrement dit,</p>
 <p>$$ \bar x = \frac{\sum_{i=1}^{n} x_i}{n} $$</p>
 <p>où \(\bar x\) est la moyenne arithmétique, \(x\) est la série des données, et \(x_n\) est la donnée à l'indice \(n\)</p>
-
+<p><strong>Voici un exemple</strong></p>
+<p>Calculons la moyenne des données suivantes:</p>
+<table>
+  <caption>Le nombre de buts marquées par une équipe de soccer dans leurs 10 premiers matchs de la saison</caption>
+  <tr>
+    <td>Match 1</td>
+    <td>Match 2</td>
+    <td>Match 3</td>
+    <td>Match 4</td>
+    <td>Match 5</td>
+    <td>Match 6</td>
+    <td>Match 7</td>
+    <td>Match 8</td>
+    <td>Match 9</td>
+    <td>Match 10</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>5</td>
+    <td>0</td>
+    <td>1</td>
+    <td>3</td>
+    <td>2</td>
+    <td>0</td>
+    <td>4</td>
+    <td>3</td>
+    <td>4</td>
+  </tr>
+</table>
+<p>La moyenne peut être exprimé par l'équation: \( \bar x = \frac{\sum_{i=1}^{n} x_i}{n} \) donc:</p>
+<p>
+  $$ \begin{align} \bar x &= \frac{3 + 5 + 0 + 1 + 3 + 2 + 0 + 4 + 3 + 4}{10} \\ \bar x &= 2.5 \end{align} $$
+  Donc la moyenne est 2,5.
+</p>
 <h2>La moyenne pondérée</h2>
 <p><a href="https://youtu.be/-Q2Mlz74VeY" target="_blank">La moyenne pondérée et vérification avec Google Sheets</a> (vidéo de Mme. Bernatchez de 10 minutes)</p>
 <p>Parfois, les valeurs d'une série de données est associé a un coefficient/poids/fréquence. Ceci est commun dans le calcul des notes ou en analysant les données d'un <a href="/MDM4U/module1/2.html" target="_blank"> échantillon aléatoire stratifié</a>. Elle peut être calculé en multipliant chaque terme par son poids, prenant la somme de ceci, et puis en divisant cette somme par la somme des coefficients</p>
@@ -66,8 +103,9 @@ $(function(){
 <p>
   où \(\bar x\) est la moyenne, <br>
   \(x\) est la série des données tel que \(x_n\) est la donnée à l'indice \(n\) et <br>
-  \(c\) est la série des poids tel que \(c_n\) est le poids de la valeur \(c_n\) et
+  \(c\) est la série des poids tel que \(c_n\) est le poids de la valeur \(x_n\) et
 </p>
+
 
 <h2>Sous-titre 2</h2>
 <p>Voici une liste</p>
