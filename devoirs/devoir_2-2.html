@@ -7,14 +7,19 @@
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
 <style>
 body {font-family: "Roboto", sans-serif}
 .w3-bar-block .w3-bar-item {
   padding: 16px;
   font-weight: bold;
 }
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
 </style>
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
 <!--Navigation bar-->
@@ -54,28 +59,112 @@ $(function(){
         <p>Calcule la moyenne, la médiane et le mode des ensemble de données suivants à la main,  sans l’aide d'un logiciel.  Montre tes calculs en exprimant d’abord la formule. Ensuite, vérifie ta réponse à l’aide de la technologie (DESMOS ou Google Sheets ou autre).</p>
         <ol type="a">
             <li>
-                <p>les notes d’un ensemble d’examens (en pourcentage): [66,65,72,78,93,70,68,64]</p>
-
+                <p><strong>les notes d’un ensemble d’examens (en pourcentage): [66,65,72,78,93,70,68,64]</strong></p>
+                <p>Calculons la moyenne</p>
+                <p>\[ \begin{align} \bar x &= \frac{\sum_{i=1}^{n} x_i}{n} \\ \bar x &= \frac{66 + 65 + 72 + 78 + 93 + 70 + 68 + 64}{8} \\ \bar x &= 72 \end{align} \]</p>
+                <p>Calculons la médiane. Elle se trouve à l'indice: </p>
+                <p>\[ \begin{align} i &= \frac{n+1}{2} \\ i &= \frac{9}{2} \\ i &= 4.5 \end{align} \]</p>
+                <p>Donc il s'agit de la moyenne des valeurs aux indices 4 et 5 dans la version ordonée de cette liste, soit la valeur <b>69</b>.</p>
+                <p>Le mode est la valeur la plus commune parmis les données. Cependant, ici, il n'y a pas de valeur la plus fréquente.</p>
             </li>
             <li>
-                <p>les loyers mensuels (en dollars): [625,750,800,650,725,850,625,650,625,1250]</p>
-
+                <p><strong>les loyers mensuels (en dollars): [625,750,800,650,725,850,625,650,625,1250]</strong></p>
+                <p>Calculons la moyenne</p>
+                <p>\[ \begin{align} \bar x &= \frac{\sum_{i=1}^{n} x_i}{n} \\ \bar x &= \frac{625 + 750 + 800 + 650 + 725 + 850 + 625 + 650 + 625 + 1250}{10} \\ \bar x &= 755 \end{align} \]</p>
+                <p>Calculons la médiane. Elle se trouve à l'indice: </p>
+                <p>\[ \begin{align} i &= \frac{10+1}{2} \\ i &= \frac{11}{2} \\ i &= 5.5 \end{align} \]</p>
+                <p>Donc il s'agit de la moyenne des valeurs aux indices 5 et 6 dans la version ordonée de cette liste, soit la valeur <b>687.5</b>.</p>
+                <p>Le mode est la valeur la plus commune parmis les données. Il s'agit donc de la valeur 625</p>
             </li>
             <li>
-                <p>les réponses à un sondage (1 = jamais, 2 = parfois, 3 = souvent, 4 = toujours): [1,2,3,4,3,3,4,3,2,3,3,2,3,2,1,2,3,4,3,3,2,3,2,3,2,3,3]</p>
-
+                <p><strong>les réponses à un sondage (1 = jamais, 2 = parfois, 3 = souvent, 4 = toujours): [1,2,3,4,3,3,4,3,2,3,3,2,3,2,1,2,3,4,3,3,2,3,2,3,2,3,3]</strong></p>
+                <p>Calculons la moyenne</p>
+                <p>\[ \begin{align} \bar x &= \frac{\sum_{i=1}^{n} x_i}{n} \\ \bar x &= \frac{1+2+3+4+3+3+4+3+2+3+3+2+3+2+1+2+3+4+3+3+2+3+2+3+2+3+3}{27} \\ \bar x &= 2.\overline{666} \end{align} \]</p>
+                <p>Calculons la médiane. Elle se trouve à l'indice: </p>
+                <p>\[ \begin{align} i &= \frac{27+1}{2} \\ i &= \frac{28}{2} \\ i &= 14 \end{align} \]</p>
+                <p>Donc il s'agit de la valeur <b>3</b>.</p>
+                <p>Le mode est la valeur la plus commune parmis les données. Il s'agit donc de la valeur 3</p>
             </li>
             <li>
-                <p>les points marqués par une joueuse de basket-ball:  [12, 15, 8, 12, 15, 10,  3, 14, 15]</p>
-
+                <p><strong>les points marqués par une joueuse de basket-ball:  [12, 15, 8, 12, 15, 10,  3, 14, 15]</strong></p>
+                <p>Calculons la moyenne</p>
+                <p>\[ \begin{align} \bar x &= \frac{\sum_{i=1}^{n} x_i}{n} \\ \bar x &= \frac{12 + 15 + 8 + 12 + 15 + 10 + 3 + 14 + 15}{9} \\ \bar x &= 11.\overline{555} \end{align} \]</p>
+                <p>Calculons la médiane. Elle se trouve à l'indice: </p>
+                <p>\[ \begin{align} i &= \frac{9+1}{2} \\ i &= \frac{10}{2} \\ i &= 5 \end{align} \]</p>
+                <p>Donc il s'agit de la valeur <b>12</b>.</p>
+                <p>Le mode est la valeur la plus commune parmis les données. Il s'agit donc de la valeur 15</p>
             </li>
         </ol>
     </li>
     <li>
         <p>Des trois mesures calculées à la question 1, quelle est celle qui est la plus appropriée pour chaque situation ? Pourquoi ? </p> 
+        <ol type="a">
+          <li><p>La moyenne est la mesure la plus appropriée. Il ne devrait pas avoir beaucoup de valeurs aberrantes dans la distribution des notes des élèves car toutes les valeurs doivent être comprises entre 0 et 100. S'il y en a, c'est important de le savoir et qu'elles comptent.</p></li>
+          <li><p>La médiane est la mesure la plus appropriée. Il n'y a aucune limite au loyer mensuel d'un lieu. Il est important que la petite quantité des endroits extrèmements chers et abbérantes n'ont pas trop d'influence sur la mesure de tendance.</p></li>
+          <li><p>La mode est la mesure la plus appropriée. Il n'y a que 4 valeurs possibles pour les données, et les données sont nombreuses. Le mode pourrait même facilement être attribué à la variable qualitative qu'elle représente. On pourrait alors conclure que la plus grande partie des gens ont répondu "souvent" au sondage.</p></li>
+          <li><p>La moyenne est la mesure la plus appropriée. Comme dane la question 1a, il ne devrait pas avoir beaucoup de valeurs aberrantes dans cette distribution. S'il y en a, c'est important de le savoir et qu'elles comptent.</p></li>
+        </ol>
     </li>
     <li>
         <p>L’entreprise Chaussures Hakim à enregistré les résultats de vente suivants:</p>
+        <table>
+          <caption>Tableau 3: La fréquence en fonction du point de chaussure</caption>
+          <tr>
+            <th>Taille</th>
+            <td>4&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>5&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>6&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>7&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>8&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>9&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>10&nbsp;&nbsp;&nbsp;</td>
+          </tr>
+          <tr>
+            <th>Fréquence</th>
+            <td>5</td>
+            <td>11</td>
+            <td>15</td>
+            <td>18</td>
+            <td>19</td>
+            <td>13</td>
+            <td>7</td>
+          </tr>
+        </table>
+        <ol type="a">
+          <li>
+            <p><strong>Calcule la moyenne, la médiane et le mode des pointures de souliers.</strong></p>
+            <p>A FAIRE</p>
+          </li>
+          <li>
+            <p><strong>Quelle est la mesure de tendance centrale la plus appropriée ? Pourquoi ?</strong></p>
+            <p>A FAIRE</p>
+          </li>
+        </ol>
+    </li>
+    <li>
+      <p>Crée un ensemble comprenant au moins cinq valeurs ayant les propriétés suivantes</p>
+      <ol type="a">
+        <li><p>La moyenne, la médiane et le mode sont égaux à 10.</p></li>
+        <li><p>La médiane est de 5 et la moyenne est supérieure à 10. </p></li>
+      </ol>
+      <p>A FAIRE</p>
+    </li>
+    <li value="6">
+      <p>Si la note semestrielle a un poids de 70% et que l’examen a un poids de 30% et que la note semestrielle d’une élève est 75%.  Détermine sa note finale si elle obtient une de ces notes à l’examen. </p>
+      <ol type="a">
+        <li>
+          <p>70%</p>
+          <p>A FAIRE</p>
+        </li>
+        <li>
+          <p>80%</p>
+          <p>A FAIRE</p>
+        </li>
+        <li>
+          <p>85%</p>
+          <p>A FAIRE</p>
+        </li>
+      </ol>
     </li>
 </ol>
 
