@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Import MathJax -->
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
+
+<head>
+<meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<title>MDM4U</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: left column is the guessing station (hidden card, five-card deck, run result); right column is the histogram of finished runs against the chance distribution. Stacks on phones. */
+:root {
+  --bg: #e6eaee;
+  --surface: #f5f7f9;
+  --ink: #12171c;
+  --muted: #56626d;
+  --line: #c5cdd5;
+  --accent: #1f5f94;
+  --onaccent: #ffffff;
+  --back: #1f5f94;
+  --back2: #1a5282;
+  --hit: #1b7a4a;
+  --miss: #b0402e;
+  --latest: #e0920f;
+  --card: #ffffff;
+  --cardink: #10151a;
+  --cardline: #b5bec7;
+  --display: 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
+  --body: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1317;
+    --surface: #171c22;
+    --ink: #e8ecf0;
+    --muted: #97a3ae;
+    --line: #2a323a;
+    --accent: #5aa4dc;
+    --onaccent: #0b1218;
+    --back: #2c6aa0;
+    --back2: #245a8a;
+    --hit: #4fbf86;
+    --miss: #e8806d;
+    --latest: #f0b24a;
+    --card: #f1f3f5;
+    --cardink: #10151a;
+    --cardline: #3a444d;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1317;
+  --surface: #171c22;
+  --ink: #e8ecf0;
+  --muted: #97a3ae;
+  --line: #2a323a;
+  --accent: #5aa4dc;
+  --onaccent: #0b1218;
+  --back: #2c6aa0;
+  --back2: #245a8a;
+  --hit: #4fbf86;
+  --miss: #e8806d;
+  --latest: #f0b24a;
+  --card: #f1f3f5;
+  --cardink: #10151a;
+  --cardline: #3a444d;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.5 var(--body);
+  padding-block: 28px 44px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1080px; margin: 0 auto; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* header */
+.top { margin-bottom: 24px; }
+.five { display: flex; gap: 10px; color: var(--muted); margin-bottom: 10px; }
+.five svg { width: 26px; height: 26px; display: block; }
+h1 {
+  font: 700 clamp(2rem, 5vw, 3rem)/1.02 var(--display);
+  letter-spacing: -0.02em;
+  margin: 0 0 10px;
+  text-wrap: balance;
+}
+.lead { max-width: 62ch; margin: 0; color: var(--muted); font-size: 1.0625rem; }
+
+/* grid */
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+@media (max-width: 880px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 18px;
+  min-width: 0;
+}
+h2 { font: 650 1.25rem/1.2 var(--display); letter-spacing: -0.01em; margin: 0; }
+.eyebrow {
+  font: 500 11px/1.2 var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* controls */
+fieldset { border: 0; margin: 0 0 14px; padding: 0; min-width: 0; }
+legend { padding: 0; margin-bottom: 8px; }
+.segs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.seg { position: relative; display: block; }
+.seg input {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  opacity: 0; margin: 0; cursor: pointer;
+}
+.segbox {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--bg);
+}
+.segbox b { font: 650 1.5rem/1 var(--display); }
+.segbox small { font: 400 11px/1.3 var(--mono); color: var(--muted); }
+.seg input:checked + .segbox { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.seg input:checked + .segbox b { color: var(--accent); }
+.seg input:focus-visible + .segbox { outline: 3px solid var(--accent); outline-offset: 2px; }
+.seg input:disabled { cursor: not-allowed; }
+.seg input:disabled + .segbox { opacity: 0.55; }
+.seg input:disabled:checked + .segbox { opacity: 1; }
+
+button { font: inherit; }
+.btn {
+  width: 100%;
+  padding: 11px 16px;
+  border-radius: 5px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: var(--onaccent);
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn.ghost { background: transparent; color: var(--accent); }
+.btn:hover { filter: brightness(1.08); }
+
+/* stage */
+.stage { margin-top: 20px; display: grid; gap: 14px; justify-items: center; }
+.status {
+  width: 100%;
+  display: flex; justify-content: space-between; gap: 12px;
+  font: 500 13px/1.3 var(--mono);
+  color: var(--muted);
+}
+.status .sc { color: var(--ink); font-variant-numeric: tabular-nums; }
+.card3d { width: min(150px, 40vw); aspect-ratio: 5 / 7; perspective: 900px; }
+.flip {
+  position: relative; width: 100%; height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.3, 0.7, 0.2, 1);
+}
+.flip.on { transform: rotateY(180deg); }
+.face {
+  position: absolute; inset: 0;
+  border-radius: 6px;
+  border: 1px solid var(--cardline);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.face.back {
+  background: repeating-linear-gradient(45deg, var(--back) 0 6px, var(--back2) 6px 12px);
+  border-color: var(--back2);
+}
+.face.back::after {
+  content: ""; position: absolute; inset: 8px;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  border-radius: 3px;
+}
+.face.front {
+  transform: rotateY(180deg);
+  background: var(--card); color: var(--cardink);
+}
+.face.front svg, .gcard svg {
+  position: absolute; left: 12%; top: 12%;
+  width: 76%; height: 76%;
+  display: block; overflow: visible;
+  stroke: var(--cardink); fill: none;
+}
+.feedback { margin: 0; min-height: 3em; text-align: center; max-width: 34ch; }
+.feedback.hit strong { color: var(--hit); }
+.feedback.miss strong { color: var(--miss); }
+.progress { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; min-height: 12px; }
+.pip { width: 10px; height: 10px; border: 1.5px solid var(--muted); border-radius: 2px; }
+.pip.now { border-color: var(--ink); }
+.pip.hit { background: var(--hit); border-color: var(--hit); }
+.pip.miss {
+  border-color: var(--miss);
+  background: linear-gradient(to top right, transparent 42%, var(--miss) 42% 58%, transparent 58%);
+}
+.ask { width: 100%; }
+.deck { width: 100%; display: flex; gap: 8px; justify-content: center; margin-top: 8px; }
+.gcard {
+  position: relative;
+  flex: 1 1 0; min-width: 0; max-width: 92px;
+  aspect-ratio: 5 / 7;
+  display: block; padding: 0;
+  background: var(--card); color: var(--cardink);
+  border: 1px solid var(--cardline);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.12s ease;
+}
+.gcard .k { position: absolute; left: 6px; bottom: 3px; font: 500 11px/1 var(--mono); color: #6b7681; }
+.gcard:hover:not(:disabled) { transform: translateY(-3px); }
+.gcard:disabled { cursor: default; opacity: 0.5; }
+.gcard.pick-hit { outline: 3px solid var(--hit); outline-offset: 1px; }
+.gcard.pick-miss { outline: 3px solid var(--miss); outline-offset: 1px; }
+.gcard.answer { outline: 3px dashed var(--hit); outline-offset: 1px; }
+
+/* result */
+.result { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line); }
+.result[hidden] { display: none; }
+.big { font: 700 2.25rem/1 var(--display); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.big span { font-size: 1.1rem; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+.result p { margin: 6px 0 0; color: var(--muted); }
+
+/* chart */
+.chead { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 16px; margin-bottom: 12px; }
+.chart { width: 100%; min-width: 0; overflow: hidden; }
+.chart svg { display: block; width: 100%; height: auto; }
+.chart .t { font: 400 11px var(--mono); fill: var(--muted); }
+.chart .note { font: 400 12px var(--body); fill: var(--muted); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 10px 0 0; padding: 0; list-style: none; font-size: 13px; color: var(--muted); }
+.legend li { display: flex; align-items: center; gap: 7px; }
+.sw { width: 12px; height: 12px; border-radius: 2px; display: inline-block; }
+.sw.you { background: var(--accent); }
+.sw.latest { background: var(--latest); }
+.sw.chance { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 50%; }
+.stats {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px; margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--line);
+}
+@media (max-width: 560px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.stats dt { font: 500 11px/1.2 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.stats dd { margin: 4px 0 0; font: 650 1.35rem/1.1 var(--display); font-variant-numeric: tabular-nums; }
+.clear {
+  margin-top: 14px; background: none; border: 0; padding: 0;
+  color: var(--muted); font-size: 13px; text-decoration: underline; cursor: pointer;
+}
+.clear.arm { color: var(--miss); }
+.clear:disabled { opacity: 0.4; cursor: default; text-decoration: none; }
+
+.foot { margin: 28px 0 0; max-width: 78ch; color: var(--muted); font-size: 13px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .flip, .gcard { transition: none; }
+}
+</style>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+<!--Navigation bar-->
+<div id="nav-placeholder">
+
+</div>
+
+<script>
+$(function(){
+  $("#nav-placeholder").load("../nav.html");
+});
+</script>
+<!--end of Navigation bar-->
+
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
+
+<div class="w3-main" style="margin-left:250px;">
+
+<div id="myTop" class="w3-container w3-top w3-theme w3-large">
+  <p><i class="fa fa-bars w3-button w3-teal w3-hide-large w3-xlarge" onclick="w3_open()"></i>
+  <span id="myIntro" class="w3-hide">MDM4U</span></p>
+</div>
+
+<header class="w3-container w3-theme" style="padding:64px 32px">
+  <h1 class="w3-xxxlarge">La probabilité expérimentale</h1>
+</header>
+
+<div class="w3-container" style="padding:32px">
+
+<!-- Tu peux complètement modifier le contenu ci-dessous -->
+
+<div class="wrap">
+  <header class="top">
+    <div class="five" id="five" aria-hidden="true"></div>
+    <h1>Test de cartes Zener</h1>
+    <p class="lead">Chaque ronde, une carte cache un symbole. Devine le symbole sur le dos de la carte, regarde-le, et répète. En devinant tout simplement, tu devrais avoir une bonne réponse sur 5. Utilise l'histogramme à droite pour comparer tes résultats. Es-tu médium?</p>
+  </header>
+
+  <div class="grid">
+    <section class="panel" aria-labelledby="runTitle">
+      <div class="eyebrow">Station de devinettes</div>
+      <h2 id="runTitle" style="margin-bottom:14px">Commence un test</h2>
+
+      <fieldset id="lenSet">
+        <legend class="eyebrow">Rondes par série</legend>
+        <div class="segs">
+          <label class="seg"><input type="radio" name="len" id="len5" value="5"><span class="segbox"><b>5</b><small id="c5">0 séries</small></span></label>
+          <label class="seg"><input type="radio" name="len" id="len10" value="10" checked><span class="segbox"><b>10</b><small id="c10">0 séries</small></span></label>
+          <label class="seg"><input type="radio" name="len" id="len25" value="25"><span class="segbox"><b>25</b><small id="c25">0 séries</small></span></label>
+        </div>
+      </fieldset>
+      <button type="button" class="btn" id="startBtn">Commencer une série</button>
+
+      <div class="stage">
+        <div class="status"><span id="trialLabel">Prêt</span><span class="sc" id="scoreLabel"></span></div>
+        <div class="card3d" id="bigcard" role="img" aria-label="Hidden card">
+          <div class="flip" id="flip">
+            <div class="face back"></div>
+            <div class="face front" id="front"></div>
+          </div>
+        </div>
+        <p class="feedback" id="feedback" aria-live="polite">Choisis la taille de tes séries, et puis commence</p>
+        <div class="progress" id="progress" aria-hidden="true"></div>
+        <div class="ask">
+          <div class="eyebrow" style="text-align:center">Ta supposition est <span style="text-transform:none;letter-spacing:0">(touches 1 à 5)</span></div>
+          <div class="deck" id="deck" role="group" aria-label="Choose a symbol"></div>
+        </div>
+      </div>
+
+      <div class="result" id="result" hidden aria-live="polite"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="histTitle">
+      <div class="chead">
+        <h2 id="histTitle">Tes résultats</h2>
+        <span class="eyebrow" id="histSub">Séries de 10 cartes</span>
+      </div>
+      <div class="chart" id="chart"></div>
+      <ul class="legend">
+        <li><span class="sw you"></span>Séries complètés</li>
+        <li><span class="sw latest"></span>Série la plus récente</li>
+        <li><span class="sw chance"></span>Séries gagnés attnedues en devinant</li>
+      </ul>
+      <dl class="stats">
+        <div><dt>Séries</dt><dd id="stRuns">0</dd></div>
+        <div><dt>Ta moyenne</dt><dd id="stMean">&ndash;</dd></div>
+        <div><dt>Moyenne des devinettes</dt><dd id="stExp">2.0</dd></div>
+        <div><dt>Meilleure série</dt><dd id="stBest">&ndash;</dd></div>
+      </dl>
+      <button type="button" class="clear" id="clearBtn" disabled>Supprimer tous mes résultats</button>
+    </section>
+  </div>
+
+  <p class="foot">Karl Zener a conçu ces cinq symboles avec J. B. Rhine pour des expériences de perception extrasensorielle à l'université Duke au début des années 1930. Chaque carte cachée est tirée aléatoirement et uniformément par le générateur cryptographique de votre navigateur ; le hasard seul ne permet donc de deviner correctement qu'une fois sur cinq en moyenne. Les résultats sont conservés uniquement dans ce navigateur.</p>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var SYMS = [
+    { id: 'circle', name: 'Cercle' },
+    { id: 'cross',  name: 'Croix' },
+    { id: 'waves',  name: 'Vagues' },
+    { id: 'square', name: 'Carrée' },
+    { id: 'star',   name: 'Étoile' }
+  ];
+  var LENGTHS = [5, 10, 25];
+  var KEY = 'zener-card-test-v1';
+  var $ = function (id) { return document.getElementById(id); };
+
+  /* ---------- symbols ---------- */
+  function symSVG(id, sw) {
+    var b = '';
+    if (id === 'circle') b = '<circle cx="50" cy="50" r="30"/>';
+    else if (id === 'cross') b = '<path d="M50 18V82M18 50H82"/>';
+    else if (id === 'square') b = '<rect x="22" y="22" width="56" height="56" stroke-linejoin="miter"/>';
+    else if (id === 'waves') {
+      [28, 50, 72].forEach(function (y) {
+        b += '<path d="M14 ' + y + 'q9 -11 18 0t18 0t18 0t18 0"/>';
+      });
+    } else {
+      var pts = [];
+      for (var i = 0; i < 10; i++) {
+        var a = (-90 + i * 36) * Math.PI / 180;
+        var r = i % 2 ? 16 : 40;
+        pts.push((50 + r * Math.cos(a)).toFixed(2) + ',' + (53 + r * Math.sin(a)).toFixed(2));
+      }
+      b = '<polygon points="' + pts.join(' ') + '"/>';
+    }
+    return '<svg viewBox="0 0 100 100" width="100" height="100" fill="none" stroke="currentColor" stroke-width="' + (sw || 7) +
+      '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + b + '</svg>';
+  }
+
+  /* ---------- randomness and maths ---------- */
+  function rand5() {
+    try {
+      var a = new Uint32Array(1);
+      var lim = Math.floor(4294967296 / 5) * 5;
+      do { crypto.getRandomValues(a); } while (a[0] >= lim);
+      return a[0] % 5;
+    } catch (e) {
+      return Math.floor(Math.random() * 5);
+    }
+  }
+  function pmf(n) {
+    var p = [], c = 1;
+    for (var k = 0; k <= n; k++) {
+      if (k > 0) c = c * (n - k + 1) / k;
+      p.push(c * Math.pow(0.2, k) * Math.pow(0.8, n - k));
+    }
+    return p;
+  }
+  function fmtP(p) {
+    if (p < 0.001) return 'less than 0.1%';
+    return (p * 100).toFixed(p < 0.1 ? 1 : 0) + '%';
+  }
+
+  /* ---------- state ---------- */
+  function load() {
+    var out = { 5: [], 10: [], 25: [] };
+    try {
+      var s = JSON.parse(localStorage.getItem(KEY));
+      if (s) LENGTHS.forEach(function (n) {
+        if (Array.isArray(s[n])) out[n] = s[n].filter(function (v) { return Number.isInteger(v) && v >= 0 && v <= n; });
+      });
+    } catch (e) {}
+    return out;
+  }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(runs)); } catch (e) {} }
+
+  var runs = load();
+  var sel = 10;
+  var run = null;
+  var lastRun = null;
+  var timer = null;
+  var clearTimer = null;
+  var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- build static bits ---------- */
+  $('five').innerHTML = SYMS.map(function (s) { return symSVG(s.id, 9); }).join('');
+  var deck = $('deck');
+  SYMS.forEach(function (s, i) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'gcard';
+    b.dataset.i = i;
+    b.id = 'g' + i;
+    b.title = s.name;
+    b.setAttribute('aria-label', s.name + ', key ' + (i + 1));
+    b.innerHTML = symSVG(s.id) + '<span class="k" aria-hidden="true">' + (i + 1) + '</span>';
+    b.addEventListener('click', function () { guess(i); });
+    deck.appendChild(b);
+  });
+  var cards = Array.prototype.slice.call(deck.children);
+
+  /* ---------- run flow ---------- */
+  function startRun() {
+    run = { n: sel, i: 0, score: 0, target: 0, locked: false, marks: [] };
+    $('result').hidden = true;
+    newTrial();
+    updateControls();
+    cards[0].focus();
+  }
+  function cancelRun() {
+    clearTimeout(timer);
+    run = null;
+    resetCard();
+    $('trialLabel').textContent = 'Run cancelled';
+    $('scoreLabel').textContent = '';
+    setFeedback('Aucun score a été enrégistré. Clique le bouton "Commencer une nouvelle série" pour réessayer');
+    $('progress').innerHTML = '';
+    updateControls();
+  }
+  function resetCard() {
+    $('flip').classList.remove('on');
+    cards.forEach(function (c) { c.classList.remove('pick-hit', 'pick-miss', 'answer'); });
+  }
+  function newTrial() {
+    resetCard();
+    run.target = rand5();
+    run.locked = false;
+    $('trialLabel').textContent = 'Carte ' + (run.i + 1) + ' de ' + run.n;
+    $('scoreLabel').textContent = 'Prédictions vraies ' + run.score;
+    setFeedback('Quel symbole est au dos de la carte?');
+    drawProgress();
+    cards.forEach(function (c) { c.disabled = false; });
+  }
+  function drawProgress() {
+    var h = '';
+    for (var k = 0; k < run.n; k++) {
+      var cls = 'pip';
+      if (k < run.marks.length) cls += run.marks[k] ? ' vrai' : ' faux';
+      else if (k === run.i) cls += ' now';
+      h += '<span class="' + cls + '"></span>';
+    }
+    $('progress').innerHTML = h;
+  }
+  function setFeedback(html, cls) {
+    var f = $('feedback');
+    f.className = 'feedback' + (cls ? ' ' + cls : '');
+    f.innerHTML = html;
+  }
+  function guess(i) {
+    if (!run || run.locked) return;
+    run.locked = true;
+    var hit = i === run.target;
+    if (hit) run.score++;
+    run.marks.push(hit);
+    $('front').innerHTML = symSVG(SYMS[run.target].id);
+    $('bigcard').setAttribute('aria-label', 'Hidden card: ' + SYMS[run.target].name);
+    $('flip').classList.add('on');
+    cards[i].classList.add(hit ? 'pick-hit' : 'pick-miss');
+    if (!hit) cards[run.target].classList.add('answer');
+    setFeedback(hit
+      ? "<strong>Bravo.</strong> C'était le " + SYMS[run.target].name.toLowerCase() + '.'
+      : '<strong>Faux.</strong> Tu a coisi le ' + SYMS[i].name.toLowerCase() + "; c'était le " + SYMS[run.target].name.toLowerCase() + '.',
+      hit ? 'vrai' : 'faux');
+    $('scoreLabel').textContent = 'Hits ' + run.score;
+    drawProgress();
+    timer = setTimeout(function () {
+      if (!run) return;
+      if (run.i + 1 < run.n) { run.i++; newTrial(); }
+      else finishRun();
+    }, reduced ? 700 : 1150);
+  }
+  function finishRun() {
+    var n = run.n, score = run.score;
+    runs[n].push(score);
+    lastRun = { n: n, score: score };
+    save();
+    run = null;
+    resetCard();
+    $('trialLabel').textContent = 'Série complèté';
+    $('scoreLabel').textContent = '';
+    setFeedback('Clique "Commencer une nouvelle série" pour recommencer');
+    $('progress').innerHTML = '';
+    showResult(n, score);
+    sel = n;
+    updateControls();
+    renderAll();
+  }
+  function showResult(n, score) {
+    var pm = pmf(n), mean = n / 5, up = 0, lo = 0, k;
+    for (k = score; k <= n; k++) up += pm[k];
+    for (k = 0; k <= score; k++) lo += pm[k];
+    var line = score >= mean
+      ? 'Chance alone gives ' + score + ' or more correct about ' + fmtP(up) + ' of the time.'
+      : 'Chance alone gives ' + score + ' or fewer correct about ' + fmtP(lo) + ' of the time.';
+    var el = $('result');
+    el.innerHTML = '<div class="eyebrow" style="margin-bottom:6px">Latest run</div>' +
+      '<div class="big">' + score + ' <span>of ' + n + ' correct</span></div>' +
+      '<p>' + line + ' Les moyennes en devinant ' + mean.toFixed(1) + '.</p>';
+    el.hidden = false;
+  }
+
+  /* ---------- controls ---------- */
+  function updateControls() {
+    var running = !!run;
+    LENGTHS.forEach(function (n) {
+      var r = $('len' + n);
+      r.disabled = running;
+      r.checked = n === sel;
+      var c = runs[n].length;
+      $('c' + n).textContent = c + (c === 1 ? ' run' : ' runs');
+    });
+    var b = $('startBtn');
+    b.textContent = running ? 'Annuler la série' : (lastRun ? 'Commencer une nouvelle série' : 'Commencer une série');
+    b.classList.toggle('ghost', running);
+    cards.forEach(function (c) { c.disabled = !running; });
+    var total = LENGTHS.reduce(function (a, n) { return a + runs[n].length; }, 0);
+    $('clearBtn').disabled = total === 0;
+  }
+  $('startBtn').addEventListener('click', function () { run ? cancelRun() : startRun(); });
+  LENGTHS.forEach(function (n) {
+    $('len' + n).addEventListener('change', function () {
+      if (run) return;
+      sel = n;
+      renderAll();
+      if (!run) $('trialLabel').textContent = 'Ready';
+    });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (!run || e.ctrlKey || e.metaKey || e.altKey) return;
+    if (e.key >= '1' && e.key <= '5') { e.preventDefault(); guess(+e.key - 1); }
+  });
+  $('clearBtn').addEventListener('click', function () {
+    var b = $('clearBtn');
+    if (!b.classList.contains('arm')) {
+      b.classList.add('arm');
+      b.textContent = 'Press again to clear all results';
+      clearTimeout(clearTimer);
+      clearTimer = setTimeout(disarm, 4000);
+      return;
+    }
+    disarm();
+    runs = { 5: [], 10: [], 25: [] };
+    lastRun = null;
+    save();
+    $('result').hidden = true;
+    updateControls();
+    renderAll();
+  });
+  function disarm() {
+    var b = $('clearBtn');
+    b.classList.remove('arm');
+    b.textContent = 'Clear all results';
+  }
+
+  /* ---------- histogram ---------- */
+  var chartEl = $('chart');
+  function drawChart() {
+    var n = sel, scores = runs[n], N = scores.length;
+    var counts = [];
+    for (var k = 0; k <= n; k++) counts.push(0);
+    scores.forEach(function (s) { counts[s]++; });
+    var pm = pmf(n);
+    var ghost = N === 0;
+    var Ne = ghost ? 100 : N;
+    var exp = pm.map(function (p) { return p * Ne; });
+
+    var W = Math.max(260, Math.round(chartEl.clientWidth || 520)), H = 300;
+    var m = { l: 40, r: 10, t: 14, b: 46 };
+    var iw = W - m.l - m.r, ih = H - m.t - m.b;
+
+    var ymax = Math.max.apply(null, [1].concat(counts, exp));
+    var steps = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000], step = 1;
+    for (var s = 0; s < steps.length; s++) { step = steps[s]; if (ymax / step <= 5) break; }
+    var top = Math.ceil(ymax / step) * step;
+    var Y = function (v) { return m.t + ih - (v / top) * ih; };
+    var band = iw / (n + 1);
+    var bw = Math.max(3, Math.min(band * 0.74, 48));
+    var cx = function (kk) { return m.l + band * (kk + 0.5); };
+
+    var g = '';
+    for (var t = 0; t <= top; t += step) {
+      g += '<line x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(t) + '" y2="' + Y(t) +
+        '" stroke="var(--line)" stroke-width="1"' + (t === 0 ? '' : ' stroke-dasharray="2 4"') + '/>';
+      g += '<text class="t" x="' + (m.l - 7) + '" y="' + (Y(t) + 4) + '" text-anchor="end">' + t + '</text>';
+    }
+    for (var j = 0; j <= n; j++) {
+      var c = counts[j];
+      if (c > 0) {
+        g += '<rect x="' + (cx(j) - bw / 2).toFixed(1) + '" y="' + Y(c).toFixed(1) + '" width="' + bw.toFixed(1) +
+          '" height="' + (Y(0) - Y(c)).toFixed(1) + '" fill="var(--accent)"/>';
+        if (lastRun && lastRun.n === n && lastRun.score === j) {
+          var uh = Math.max(3, ih / top);
+          g += '<rect x="' + (cx(j) - bw / 2).toFixed(1) + '" y="' + Y(c).toFixed(1) + '" width="' + bw.toFixed(1) +
+            '" height="' + uh.toFixed(1) + '" fill="var(--latest)" stroke="var(--surface)" stroke-width="1.5"/>';
+        }
+      }
+      if (n <= 10 || j % 5 === 0) {
+        g += '<text class="t" x="' + cx(j).toFixed(1) + '" y="' + (H - m.b + 16) + '" text-anchor="middle">' + j + '</text>';
+      }
+    }
+    var pts = exp.map(function (e, kk) { return cx(kk).toFixed(1) + ',' + Y(e).toFixed(1); }).join(' ');
+    g += '<polyline points="' + pts + '" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-opacity="0.7"' +
+      (ghost ? ' stroke-dasharray="5 4"' : '') + '/>';
+    var dr = n === 25 ? 2.6 : 3.6;
+    exp.forEach(function (e, kk) {
+      g += '<circle cx="' + cx(kk).toFixed(1) + '" cy="' + Y(e).toFixed(1) + '" r="' + dr +
+        '" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.5"/>';
+    });
+    g += '<text class="t" x="' + (m.l + iw / 2) + '" y="' + (H - 8) + '" text-anchor="middle">Correct guesses in a run</text>';
+    g += '<text class="t" transform="translate(11 ' + (m.t + ih / 2) + ') rotate(-90)" text-anchor="middle">Number of runs</text>';
+    if (ghost) {
+      g += '<text class="note" x="' + (W - m.r) + '" y="' + (m.t + 14) + '" text-anchor="end">Chance alone, across 100 runs</text>';
+      g += '<text class="note" x="' + (W - m.r) + '" y="' + (m.t + 32) + '" text-anchor="end">Finish a run to add your own.</text>';
+    }
+
+    var desc = 'Histogram of ' + N + ' runs of ' + n + ' cards. ' + counts.map(function (c, kk) {
+      return kk + ' correct: ' + c;
+    }).join('; ') + '.';
+    chartEl.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + desc + '">' + g + '</svg>';
+  }
+
+  function updateStats() {
+    var n = sel, sc = runs[n], N = sc.length;
+    $('histSub').textContent = 'Runs of ' + n + ' cards';
+    $('stRuns').textContent = N;
+    $('stExp').textContent = (n / 5).toFixed(1);
+    if (N) {
+      var sum = sc.reduce(function (a, b) { return a + b; }, 0);
+      $('stMean').textContent = (sum / N).toFixed(1);
+      $('stBest').textContent = Math.max.apply(null, sc) + ' / ' + n;
+    } else {
+      $('stMean').textContent = '–';
+      $('stBest').textContent = '–';
+    }
+  }
+  function renderAll() { updateStats(); drawChart(); updateControls(); }
+
+  if ('ResizeObserver' in window) {
+    var lastW = 0;
+    new ResizeObserver(function () {
+      var w = chartEl.clientWidth;
+      if (w !== lastW) { lastW = w; drawChart(); }
+    }).observe(chartEl);
+  } else {
+    window.addEventListener('resize', drawChart);
+  }
+
+  renderAll();
+})();
+</script>
+     
+</body>
+</html> 
